@@ -2,6 +2,7 @@ import openai
 import json
 import requests
 import nltk
+nltk.download("punkt")
 from bs4 import BeautifulSoup
 from typing import *
 import configparser
