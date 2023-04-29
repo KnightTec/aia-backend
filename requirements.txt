@@ -1,2 +1,5 @@
 requests
 flask
+openai
+nltk
+bs4

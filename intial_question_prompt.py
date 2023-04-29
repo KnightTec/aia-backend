@@ -3,6 +3,8 @@ import json
 import requests
 import nltk
 from bs4 import BeautifulSoup
+from typing import *
+import configparser
 
 
 def remove_html_tags(text):
@@ -93,7 +95,9 @@ Here is a list of the JSON descriptions of the commands that you know:
 
 SYSTEM_PROMPT += json.dumps(commands)
 
-openai.api_key = "#KEY!!!"
+config = configparser.ConfigParser()
+config.read("config.ini")
+openai.api_key = config["OpenAI"]["key"]
 
 messages = [{"role": "system", "content": SYSTEM_PROMPT}]
 
@@ -127,7 +131,7 @@ BUSINESS_CASE = \
     """
 
 
-def use_action_gpt(message: str):
+def use_action_gpt(message: str) -> Any:
     message += "\nOnly answer in the systems JSON format!"
 
     print("########### Message ############")
@@ -173,9 +177,13 @@ def action_success(action_details: str, action_result: str):
     use_action_gpt(message)
 
 
-def ask_for_case_questions(case_description: str):
+def ask_for_case_questions(case_description: str) -> Any:
     message = CASE_QUESTIONS_PROMPT.replace("<bc_description_here>", case_description)
-    use_action_gpt(message)
+    return use_action_gpt(message)
+
+
+def summarize_webpage_content(webpage_url: str) -> Any:
+    return use_action_gpt(f"Can you check {webpage_url} and provide an answer that summarizes the webpages content?")
 
 
 if __name__ == '__main__':
