@@ -48,7 +48,7 @@ def get_request_command_action(gpt_input):
         text_content = remove_html_tags(response.text)
         token_content = tokenize_string(text_content)
         text_content = " ".join(token_content)
-        action_success(f"get request for url {url}", text_content)
+        return action_success(f"get request for url {url}", text_content)
 
 
 get_request_command = {
@@ -132,7 +132,7 @@ BUSINESS_CASE = \
     """
 
 
-def use_action_gpt(message: str) -> Any:
+def use_action_gpt(message: str, first_layer=False) -> Any:
     message += "\nOnly answer in the systems JSON format!"
 
     print("########### Message ############")
@@ -164,13 +164,19 @@ def use_action_gpt(message: str) -> Any:
     print()
 
     actions = json_response["actions"]
+    result = None
     for action in actions:
         # calls the action function
-        actions_map[action["action"]](action["input"])
+        result = actions_map[action["action"]](action["input"])
+        print("XX")
+        print(result)
 
     print("###### response 2 #######")
     print(response)
     print()
+
+    if first_layer:
+        return result
 
     final_reply = response["choices"][0]["message"]["content"]
     json_response = json.loads(final_reply)
@@ -180,7 +186,7 @@ def use_action_gpt(message: str) -> Any:
 def action_failed(action_details: str):
     message = f"Action {action_details} failed." \
               + "Please repeat the previous response without that action and adapt the \"answer\" section accordingly."
-    use_action_gpt(message)
+    return use_action_gpt(message)
 
 
 def action_success(action_details: str, action_result: str):
@@ -189,7 +195,7 @@ def action_success(action_details: str, action_result: str):
               + "Here are your new instructions:" \
               + "For \"actions\" remove the successfully executed action and only created new actions if the results indicate that." \
               + "In the answer summarize your findings from the action."
-    use_action_gpt(message)
+    return use_action_gpt(message)
 
 
 def ask_for_case_questions(case_description: str) -> Any:
@@ -203,4 +209,7 @@ def summarize_webpage_content(webpage_url: str) -> Any:
 
 if __name__ == '__main__':
     # http://ztrxyv.com/
-    use_action_gpt("Can you check https://www.cqse.eu/en/ and provide an answer that summarizes the webpages content?")
+    final_result = use_action_gpt("Can you check https://www.cqse.eu/en/ and provide an answer that summarizes the webpages content?",
+                                  first_layer=True)
+    print("Final result")
+    print(final_result)
