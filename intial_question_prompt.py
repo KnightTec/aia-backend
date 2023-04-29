@@ -200,11 +200,11 @@ def action_success(action_details: str, action_result: str):
 
 def ask_for_case_questions(case_description: str) -> Any:
     message = CASE_QUESTIONS_PROMPT.replace("<bc_description_here>", case_description)
-    return use_action_gpt(message)
+    return use_action_gpt(message, first_layer=True)
 
 
 def summarize_webpage_content(webpage_url: str) -> Any:
-    return use_action_gpt(f"Can you check {webpage_url} and provide an answer that summarizes the webpages content?")
+    return use_action_gpt(f"Can you check {webpage_url} and provide an answer that summarizes the webpages content?", first_layer=True)
 
 
 if __name__ == '__main__':
