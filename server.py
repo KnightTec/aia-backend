@@ -8,7 +8,7 @@ cache = {}
 
 
 @app.route('/init/use_case', methods=['POST'])
-def init():
+def init_use_case():
     data = request.get_json()
     case_description = data['case_description']
     json_output = ask_for_case_questions(case_description=case_description)
@@ -16,7 +16,7 @@ def init():
 
 
 @app.route('/init/summarize_webpage', methods=['POST'])
-def init():
+def init_summarize_webpage():
     data = request.get_json()
     url = data['webpage_url']
     json_output = summarize_webpage_content(webpage_url=url)
