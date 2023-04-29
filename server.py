@@ -6,8 +6,6 @@ app = Flask(__name__)
 
 cache = {}
 
-# TODO: add api key to .ini
-
 
 @app.route('/init/use_case', methods=['POST'])
 def init():
