@@ -1,8 +1,10 @@
 from flask import Flask, jsonify, request
+from flask_cors import CORS
 from intial_question_prompt import ask_for_case_questions
 from intial_question_prompt import summarize_webpage_content
 
 app = Flask(__name__)
+CORS(app, resources={r"/*": {"origins": ["http://localhost:3000"]}})
 
 cache = {}
 

@@ -3,3 +3,4 @@ flask
 openai
 nltk
 bs4
+flask-cors
