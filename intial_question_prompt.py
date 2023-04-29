@@ -198,22 +198,12 @@ def action_success(action_details: str, action_result: str):
     return use_action_gpt(message)
 
 
-is_initial_request = True
-
 def ask_for_case_questions(case_description: str) -> Any:
-    global is_initial_request
-    if is_initial_request:
-        is_initial_request = False
-        messages.clear()
     message = CASE_QUESTIONS_PROMPT.replace("<bc_description_here>", case_description)
     return use_action_gpt(message, first_layer=True)
 
 
 def summarize_webpage_content(webpage_url: str) -> Any:
-    global is_initial_request
-    if is_initial_request:
-        is_initial_request = False
-        messages.clear()
     return use_action_gpt(f"Can you check {webpage_url} and provide an answer that summarizes the webpages content?", first_layer=True)
 
 
