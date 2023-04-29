@@ -11,4 +11,7 @@ Artificial Intelligence Ideation Assitant Backend - TUM.ai Hackathon 2023
 ## Run
 `python server.py`
 
+# IMPORTANT!!!!!!!
+# RESTART THE SERVER BEFORE STARTING A NEW CHAT
+
 

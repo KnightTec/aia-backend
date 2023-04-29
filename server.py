@@ -24,6 +24,8 @@ def init_summarize_webpage():
     json_output = summarize_webpage_content(webpage_url=url)
     return jsonify(json_output)
 
+# IMPORTANT!!!!!!!
+# RESTART THE SERVER BEFORE STARTING A NEW CHAT
 
 if __name__ == '__main__':
     app.run(debug=True)
