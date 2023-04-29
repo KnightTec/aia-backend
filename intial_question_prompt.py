@@ -145,11 +145,19 @@ def use_action_gpt(message: str) -> Any:
         model="gpt-3.5-turbo",
         messages=messages
     )
+    print("###### response 1 #######")
+    print(response)
+    print()
 
     reply = response["choices"][0]["message"]["content"]
 
     messages.append({"role": "assistant", "content": reply})
     json_response = json.loads(reply)
+
+    print("############ JSON ################")
+    formatted_json = json.dumps(json_response, indent=4)
+    print(formatted_json)
+    print()
 
     print("############ Answer ###############")
     print(json_response["answer"])
@@ -157,7 +165,13 @@ def use_action_gpt(message: str) -> Any:
 
     actions = json_response["actions"]
     for action in actions:
+        # calls the action function
         actions_map[action["action"]](action["input"])
+
+    print("###### response 2 #######")
+    print(response)
+    print()
+
     final_reply = response["choices"][0]["message"]["content"]
     json_response = json.loads(final_reply)
     return json_response["answer"]
