@@ -25,7 +25,7 @@ def init_summarize_webpage():
 
 
 @app.route('/process_replies', methods=['POST'])
-def init_summarize_webpage():
+def process_replies():
     data = request.get_json()
     answer = process_replies(data)
     return jsonify({"solution": answer})
