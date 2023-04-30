@@ -215,7 +215,7 @@ PROCESS_ANSWERS_PROMPT = \
 def process_replies(replies_json_dict: Any) -> str:
     json_str = json.dumps(replies_json_dict)
     message = PROCESS_ANSWERS_PROMPT.replace("<anwers_json>", json_str)
-    return use_action_gpt(message, first_layer=True)
+    return use_action_gpt(message, first_layer=False)
 
 
 if __name__ == '__main__':
