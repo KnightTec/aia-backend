@@ -1,7 +1,6 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
-from intial_question_prompt import ask_for_case_questions
-from intial_question_prompt import summarize_webpage_content
+from intial_question_prompt import ask_for_case_questions, summarize_webpage_content, process_replies
 
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": ["http://localhost:3000"]}})
@@ -23,6 +22,13 @@ def init_summarize_webpage():
     url = data['webpage_url']
     json_output = summarize_webpage_content(webpage_url=url)
     return jsonify(json_output)
+
+
+@app.route('/process_replies', methods=['POST'])
+def init_summarize_webpage():
+    data = request.get_json()
+    answer = process_replies(data)
+    return jsonify({"solution": answer})
 
 # IMPORTANT!!!!!!!
 # RESTART THE SERVER BEFORE STARTING A NEW CHAT

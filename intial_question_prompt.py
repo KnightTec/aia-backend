@@ -145,9 +145,6 @@ def use_action_gpt(message: str, first_layer=False) -> Any:
         model="gpt-3.5-turbo",
         messages=messages
     )
-    print("###### response 1 #######")
-    print(response)
-    print()
 
     reply = response["choices"][0]["message"]["content"]
 
@@ -170,10 +167,6 @@ def use_action_gpt(message: str, first_layer=False) -> Any:
         result = actions_map[action["action"]](action["input"])
         print("XX")
         print(result)
-
-    print("###### response 2 #######")
-    print(response)
-    print()
 
     if first_layer:
         return result
@@ -207,9 +200,15 @@ def summarize_webpage_content(webpage_url: str) -> Any:
     return use_action_gpt(f"Can you check {webpage_url} and provide an answer that summarizes the webpages content?", first_layer=True)
 
 
+def process_replies(replies_json_dict: Any) -> str:
+    json_str = json.dumps(replies_json_dict)
+    return "Some magic answer to improve your business"
+
 if __name__ == '__main__':
     # http://ztrxyv.com/
-    final_result = use_action_gpt("Can you check https://www.cqse.eu/en/ and provide an answer that summarizes the webpages content?",
-                                  first_layer=True)
-    print("Final result")
+    # final_result = use_action_gpt("Can you check https://www.cqse.eu/en/ and provide an answer that summarizes the webpages content?",
+    #                              first_layer=True)
+    final_result = ask_for_case_questions(BUSINESS_CASE)
+    final_result = json.dumps(final_result, indent=4)
+    print("Final result:")
     print(final_result)
