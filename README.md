@@ -1,5 +1,7 @@
 # aia-backend
-Artificial Intelligence Ideation Assitant Backend - TUM.ai Hackathon 2023
+Artificial Intelligence Ideation Assitant (AIA) Backend developed for the TUM.ai Hackathon 2023.
+
+Devpost project: https://devpost.com/software/aia?ref_content=user-portfolio&ref_feature=in_progress
 
 ## Setup
  1. Run `pip install -r requirements.txt`
