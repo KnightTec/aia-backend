@@ -209,6 +209,7 @@ PROCESS_ANSWERS_PROMPT = \
     Explain how an artificial intelligence based solution can be used to improve the business. 
     Additional, create an implementation plan of this solution and give a rough estimate of the timeline.
     The explanation should mention exactly how artificial intelligence provides.
+    Do not generate any additional questions.
     """
 
 def process_replies(replies_json_dict: Any) -> str:
