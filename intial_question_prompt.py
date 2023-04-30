@@ -200,9 +200,22 @@ def summarize_webpage_content(webpage_url: str) -> Any:
     return use_action_gpt(f"Can you check {webpage_url} and provide an answer that summarizes the webpages content?", first_layer=True)
 
 
+PROCESS_ANSWERS_PROMPT = \
+    """
+    Answers to the questions about the business:
+
+    <anwers_json>
+    
+    Explain how an artificial intelligence based solution can be used to improve the business. 
+    Additional, create an implementation plan of this solution and give a rough estimate of the timeline.
+    The explanation should mention exactly how artificial intelligence provides.
+    """
+
 def process_replies(replies_json_dict: Any) -> str:
     json_str = json.dumps(replies_json_dict)
-    return "Some magic answer to improve your business"
+    message = PROCESS_ANSWERS_PROMPT.replace("<anwers_json>", json_str)
+    return use_action_gpt(message, first_layer=True)
+
 
 if __name__ == '__main__':
     # http://ztrxyv.com/
